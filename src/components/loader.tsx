@@ -275,7 +275,10 @@ export function Loader() {
       cancelAnimationFrame(raf);
       probe.remove();
     };
-  }, [path]);
+    // First visit only — re-running on every route would re-lock overflow and
+    // leave Lenis stopped while inner pages sit below the previous scroll offset.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intro is one-shot
+  }, []);
 
   if (gone) return null;
 

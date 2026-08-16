@@ -3,12 +3,14 @@
 import { ReactLenis, useLenis } from "lenis/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function GsapLenisBridge() {
   const lenis = useLenis();
+  const path = usePathname();
 
   useEffect(() => {
     if (!lenis) return;
@@ -36,6 +38,26 @@ function GsapLenisBridge() {
       gsap.ticker.remove(tick);
     };
   }, [lenis]);
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const node = trigger.trigger;
+      if (node && !document.documentElement.contains(node)) {
+        trigger.kill();
+      }
+    });
+
+    lenis.resize();
+    lenis.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo(0, 0);
+
+    const id = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [path, lenis]);
 
   return null;
 }
