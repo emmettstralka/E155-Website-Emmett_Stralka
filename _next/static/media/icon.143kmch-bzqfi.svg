@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="46 50 144 144">
+  <rect x="46" y="50" width="144" height="144" rx="40" ry="40" fill="#050506"/>
+  <defs>
+    <linearGradient id="metal" x1="36" y1="24" x2="164" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#a8c5d4"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(118 122) scale(0.9) translate(-108 -132)">
+    <rect x="74" y="174" width="52" height="14" rx="3" stroke="url(#metal)" stroke-width="5" fill="#050506"/>
+    <path d="M88 174v-14h24v14" stroke="url(#metal)" stroke-width="5" fill="none"/>
+
+    <g transform="translate(100 156)">
+      <circle r="13" stroke="url(#metal)" stroke-width="5.4" fill="#050506"/>
+      <circle r="5" fill="#c5d4dc"/>
+
+      <g transform="rotate(-10)">
+        <path d="M-3 -7 -20 -56" stroke="url(#metal)" stroke-width="11" stroke-linecap="round"/>
+
+        <g transform="translate(-18 -56) rotate(16)">
+          <circle r="9" stroke="url(#metal)" stroke-width="5.2" fill="#050506"/>
+          <circle r="3.4" fill="#c5d4dc"/>
+          <path d="M5 -2 52 -16" stroke="url(#metal)" stroke-width="9.6" stroke-linecap="round"/>
+
+          <g transform="translate(53 -14) rotate(-18)">
+            <circle r="6.5" stroke="url(#metal)" stroke-width="4.8" fill="#050506"/>
+            <path d="M3 -1 20 6" stroke="url(#metal)" stroke-width="7.2" stroke-linecap="round"/>
+
+            <g transform="translate(20 6) rotate(12)">
+              <rect x="-4.2" y="-5.2" width="11" height="11" rx="2" stroke="url(#metal)" stroke-width="4.6" fill="#050506"/>
+              <circle cx="1" cy="0" r="2.1" fill="#a8c5d4"/>
+              <g transform="rotate(6)">
+                <path
+                  d="M5.5 -2.4 15.5 -7.2 17.2 -4.6 7.2 0.2"
+                  stroke="#f5f5f7"
+                  stroke-width="5"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </g>
+              <g transform="rotate(-6)">
+                <path
+                  d="M5.5 2.4 15.5 7.2 17.2 4.6 7.2 -0.2"
+                  stroke="#f5f5f7"
+                  stroke-width="5"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
