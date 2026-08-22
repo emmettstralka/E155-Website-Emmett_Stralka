@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { coursework, person } from "@/lib/content";
 
 export const metadata: Metadata = { title: "About" };
@@ -14,21 +14,30 @@ export default function AboutPage() {
             Engineering with an economics edge.
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/70">
-            I am an Engineering major with an Economics minor at Harvey Mudd College, with design
-            process work at Carnegie Mellon University. My work sits at the intersection of
-            embedded systems, digital design, and data-driven product strategy — systems that are
-            technically rigorous and useful in the world.
+            I am pursuing an MS in Computer Science (AI & Robotics) at Georgia Tech, with an
+            Engineering major and Economics minor at Harvey Mudd College, and design process work
+            at Carnegie Mellon University. My work sits at the intersection of embedded systems,
+            digital design, and data-driven product strategy — systems that are technically
+            rigorous and useful in the world.
           </p>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
             Right now: controls at Apple. Before that: vehicle intelligence and energy models at
             Ford, and high-resolution sensing at Trilobio.
           </p>
-          <div className="mt-12">
+          <div className="mt-12 space-y-6">
             <h2 className="text-sm tracking-[0.22em] text-white/45">EDUCATION</h2>
-            <p className="mt-4 text-2xl tracking-[-0.03em]">{person.school}</p>
-            <p className="mt-1 text-white/65">{person.degree}</p>
-            <p className="mt-8 text-2xl tracking-[-0.03em]">{person.designSchool}</p>
-            <p className="mt-1 text-white/65">{person.designContext}</p>
+            <div>
+              <p className="text-2xl tracking-[-0.03em] text-white/60">{person.graduateSchool}</p>
+              <p className="mt-1 text-base text-white/45">{person.graduateDegree}</p>
+            </div>
+            <div>
+              <p className="text-2xl tracking-[-0.03em] text-white/60">{person.school}</p>
+              <p className="mt-1 text-base text-white/45">{person.degree}</p>
+            </div>
+            <div>
+              <p className="text-2xl tracking-[-0.03em] text-white/60">{person.designSchool}</p>
+              <p className="mt-1 text-base text-white/45">{person.designProgram}</p>
+            </div>
           </div>
           <div className="mt-12">
             <h2 className="text-sm tracking-[0.22em] text-white/45">COURSEWORK</h2>

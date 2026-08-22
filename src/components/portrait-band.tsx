@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { person } from "@/lib/content";
 
 export function PortraitBand() {
@@ -20,12 +20,26 @@ export function PortraitBand() {
             {person.title} at the intersection of manufacturing control, embedded intelligence, and
             product.
           </p>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-white/60">
-            {person.degree} · {person.school}
-          </p>
-          <p className="mt-2 max-w-lg text-base leading-relaxed text-white/45">
-            {person.designSchool} · {person.designProgram}
-          </p>
+          <ul className="mt-6 list-none space-y-3 p-0">
+            <li>
+              <p className="text-base leading-snug text-white/60">
+                {person.graduateSchool}
+                <span className="text-white/45"> · {person.graduateDegree}</span>
+              </p>
+            </li>
+            <li>
+              <p className="text-base leading-snug text-white/60">
+                {person.school}
+                <span className="text-white/45"> · {person.degree}</span>
+              </p>
+            </li>
+            <li>
+              <p className="text-base leading-snug text-white/60">
+                {person.designSchool}
+                <span className="text-white/45"> · {person.designProgram}</span>
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

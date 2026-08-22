@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
+import { withBase } from "@/lib/paths";
 import { experience } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Experience" };
@@ -10,8 +11,8 @@ export default function ExperiencePage() {
       <section className="relative h-[78svh] min-h-[420px] overflow-hidden bg-black">
         <video
           className="video-bleed"
-          src="/video/robotic-arm.mp4"
-          poster="/images/robotic-arm-poster.jpg"
+          src={withBase("/video/robotic-arm.mp4")}
+          poster={withBase("/images/robotic-arm-poster.jpg")}
           autoPlay
           muted
           loop
@@ -19,11 +20,13 @@ export default function ExperiencePage() {
           preload="auto"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
-        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-16 md:px-8">
-          <p className="text-[12px] tracking-[0.32em] text-white/60">EXPERIENCE</p>
-          <h1 className="mt-4 max-w-4xl text-[clamp(2.4rem,6vw,5.5rem)] font-medium leading-[0.94] tracking-[-0.04em]">
-            From the line to the fleet.
-          </h1>
+        <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-start pt-24 pl-10 pr-5 md:pt-32 md:pl-16 md:pr-8">
+          <div className="w-full max-w-xl">
+            <p className="text-[12px] tracking-[0.32em] text-white/60">EXPERIENCE</p>
+            <h1 className="mt-4 text-[clamp(2.4rem,6vw,5.5rem)] font-medium leading-[0.94] tracking-[-0.04em]">
+              From the line to the fleet.
+            </h1>
+          </div>
         </div>
       </section>
 

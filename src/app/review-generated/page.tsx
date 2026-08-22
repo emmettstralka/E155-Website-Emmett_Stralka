@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
+import { withBase } from "@/lib/paths";
 
-export const dynamic = "force-dynamic";
 export const metadata = { title: "Generated stills review" };
 
 type Still = {
@@ -15,7 +15,7 @@ function still(dir: "images" | "creative", name: string): Still | null {
   const file = path.join(process.cwd(), "public", dir, name);
   if (!fs.existsSync(file)) return null;
   const mtimeMs = fs.statSync(file).mtimeMs;
-  const url = `/${dir}/${name}`;
+  const url = withBase(`/${dir}/${name}`);
   return {
     name,
     url,

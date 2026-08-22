@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/content";
@@ -93,6 +93,7 @@ export function HorizontalWork() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [ready, setReady] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useRef(false);
   const skipClick = useRef(false);
@@ -111,6 +112,10 @@ export function HorizontalWork() {
     },
     [n],
   );
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -220,66 +225,78 @@ export function HorizontalWork() {
       }}
     >
       <div className="px-5 pt-24 md:px-8 md:pt-32">
-        <p className="text-[12px] tracking-[0.32em] text-white/45">SELECTED WORK</p>
-        <h2 className="mt-3 text-[clamp(2rem,5vw,4.2rem)] font-medium tracking-[-0.04em] text-white">
-          Built by hand.
-        </h2>
+        <div className="mx-auto max-w-[1400px]">
+          <p className="text-[12px] tracking-[0.32em] text-white/45">SELECTED WORK</p>
+          <h2 className="mt-3 text-[clamp(2rem,5vw,4.2rem)] font-medium tracking-[-0.04em] text-white">
+            Built by hand.
+          </h2>
+        </div>
       </div>
 
       <div
         className="relative touch-pan-y overflow-hidden py-12"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endPointer}
-        onPointerCancel={endPointer}
-        onClickCapture={onClickCapture}
+        onPointerDown={ready ? onPointerDown : undefined}
+        onPointerMove={ready ? onPointerMove : undefined}
+        onPointerUp={ready ? endPointer : undefined}
+        onPointerCancel={ready ? endPointer : undefined}
+        onClickCapture={ready ? onClickCapture : undefined}
       >
         <div className="relative mx-auto h-[calc(52vh+9.5rem)] w-[min(88vw,720px)] md:h-[calc(62vh+10rem)] md:w-[58vw]">
-          {projects.map((p, i) => {
-            const d = signedDelta(i, index, n);
-            const abs = Math.abs(d);
-            const scale = abs === 0 ? 1 : abs === 1 ? 0.86 : 0.74;
-            const opacity = abs === 0 ? 1 : abs === 1 ? 0.38 : abs === 2 ? 0.12 : 0;
-            const featured = d === 0;
+          {!ready ? (
+            <div className="absolute left-1/2 top-0 -translate-x-1/2">
+              <WorkCard p={projects[0]} />
+            </div>
+          ) : (
+            projects.map((p, i) => {
+              const d = signedDelta(i, index, n);
+              const abs = Math.abs(d);
+              const scale = abs === 0 ? 1 : abs === 1 ? 0.86 : 0.74;
+              const opacity = abs === 0 ? 1 : abs === 1 ? 0.38 : abs === 2 ? 0.12 : 0;
+              const featured = d === 0;
 
-            return (
-              <div
-                key={p.slug}
-                className="absolute left-1/2 top-0 will-change-transform motion-reduce:transition-none"
-                style={{
-                  transform: `translateX(-50%) translateX(calc(${d} * (100% + 2.5rem))) scale(${scale})`,
-                  opacity,
-                  zIndex: 20 - abs,
-                  pointerEvents: abs > 1 ? "none" : "auto",
-                  transition:
-                    "transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 520ms ease",
-                }}
-                aria-hidden={!featured}
-              >
-                <WorkCard p={p} onPeek={featured ? undefined : () => setIndex(i)} />
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={p.slug}
+                  className="absolute left-1/2 top-0 will-change-transform motion-reduce:transition-none"
+                  style={{
+                    transform: `translateX(-50%) translateX(calc(${d} * (100% + 2.5rem))) scale(${scale})`,
+                    opacity,
+                    zIndex: 20 - abs,
+                    pointerEvents: abs > 1 ? "none" : "auto",
+                    transition:
+                      "transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 520ms ease",
+                  }}
+                  aria-hidden={!featured}
+                >
+                  <WorkCard p={p} onPeek={featured ? undefined : () => setIndex(i)} />
+                </div>
+              );
+            })
+          )}
         </div>
 
-        <button
-          type="button"
-          className={`${navBtn} left-4 top-[calc(3rem+26vh)] md:left-8 md:top-[calc(3rem+31vh)]`}
-          aria-label="Previous"
-          onClick={() => go(-1)}
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          <Chevron dir="prev" />
-        </button>
-        <button
-          type="button"
-          className={`${navBtn} right-4 top-[calc(3rem+26vh)] md:right-8 md:top-[calc(3rem+31vh)]`}
-          aria-label="Next"
-          onClick={() => go(1)}
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          <Chevron dir="next" />
-        </button>
+        {ready ? (
+          <>
+            <button
+              type="button"
+              className={`${navBtn} left-4 top-[calc(3rem+26vh)] md:left-8 md:top-[calc(3rem+31vh)]`}
+              aria-label="Previous"
+              onClick={() => go(-1)}
+              onPointerDown={(e) => e.stopPropagation()}
+            >
+              <Chevron dir="prev" />
+            </button>
+            <button
+              type="button"
+              className={`${navBtn} right-4 top-[calc(3rem+26vh)] md:right-8 md:top-[calc(3rem+31vh)]`}
+              aria-label="Next"
+              onClick={() => go(1)}
+              onPointerDown={(e) => e.stopPropagation()}
+            >
+              <Chevron dir="next" />
+            </button>
+          </>
+        ) : null}
       </div>
     </section>
   );

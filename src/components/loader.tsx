@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { withBase } from "@/lib/paths";
 
-const VIDEO_SRC = "/video/robotic-arm.mp4";
+const VIDEO_SRC = withBase("/video/robotic-arm.mp4");
 
 function bufferedProgress(el: HTMLVideoElement) {
   if (!el.duration || Number.isNaN(el.duration)) return 0;
@@ -210,8 +211,7 @@ function RoboticArm() {
 
 export function Loader() {
   const path = usePathname();
-  const [gone, setGone] = useState(false);
-  const [exit, setExit] = useState(false);
+  const [phase, setPhase] = useState<"boot" | "intro" | "exit" | "gone">("boot");
   const [pct, setPct] = useState(0);
 
   useEffect(() => {
@@ -220,8 +220,24 @@ export function Loader() {
     const seen = sessionStorage.getItem("es-intro-v2") === "1";
     let settled = false;
     let raf = 0;
+    const timers: number[] = [];
+
+    const release = () => {
+      document.documentElement.classList.remove("is-loading");
+      window.dispatchEvent(new Event("es:ready"));
+      setPhase("gone");
+    };
+
+    // Skip the cinematic intro on every non-home route and on return visits.
+    // Showing a frozen "100" veil made inner pages look like they failed to build.
+    if (reduced || !home || seen) {
+      sessionStorage.setItem("es-intro-v2", "1");
+      release();
+      return;
+    }
 
     document.documentElement.classList.add("is-loading");
+    setPhase("intro");
 
     const finish = () => {
       if (settled) return;
@@ -229,19 +245,11 @@ export function Loader() {
       cancelAnimationFrame(raf);
       sessionStorage.setItem("es-intro-v2", "1");
       setPct(100);
-      window.setTimeout(() => setExit(true), reduced ? 0 : 240);
-      window.setTimeout(() => {
-        document.documentElement.classList.remove("is-loading");
-        window.dispatchEvent(new Event("es:ready"));
-        setGone(true);
-      }, reduced ? 40 : 1080);
+      timers.push(
+        window.setTimeout(() => setPhase("exit"), 240),
+        window.setTimeout(release, 1080),
+      );
     };
-
-    if (reduced || !home || seen) {
-      setPct(100);
-      const t = window.setTimeout(finish, reduced ? 0 : 480);
-      return () => window.clearTimeout(t);
-    }
 
     const probe = document.createElement("video");
     probe.muted = true;
@@ -261,7 +269,7 @@ export function Loader() {
 
     const ready = () => {
       const wait = Math.max(0, 1200 - (performance.now() - t0));
-      window.setTimeout(finish, wait);
+      timers.push(window.setTimeout(finish, wait));
     };
 
     probe.addEventListener("canplaythrough", ready, { once: true });
@@ -272,6 +280,7 @@ export function Loader() {
 
     return () => {
       window.clearTimeout(failsafe);
+      timers.forEach((id) => window.clearTimeout(id));
       cancelAnimationFrame(raf);
       probe.remove();
     };
@@ -280,10 +289,10 @@ export function Loader() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- intro is one-shot
   }, []);
 
-  if (gone) return null;
+  if (phase === "boot" || phase === "gone") return null;
 
   return (
-    <div className={`loader-root ${exit ? "is-exit" : ""}`} aria-hidden role="presentation">
+    <div className={`loader-root ${phase === "exit" ? "is-exit" : ""}`} aria-hidden role="presentation">
       <div className="loader-veil" />
       <div className="loader-stage">
         <RoboticArm />

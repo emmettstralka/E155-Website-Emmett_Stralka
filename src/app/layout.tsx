@@ -6,6 +6,7 @@ import { Loader } from "@/components/loader";
 import { Nav } from "@/components/nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { person } from "@/lib/content";
+import { withBase } from "@/lib/paths";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,10 +18,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const site = "https://stremme1.github.io/emmett-stralka";
+const site = "https://emmettstralka.github.io/E155-Website-Emmett_Stralka";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://emmettstralka.com"),
+  metadataBase: new URL(`${site}/`),
   title: {
     default: `${person.name} — Controls, Embedded Systems, Products`,
     template: `%s — ${person.name}`,
@@ -30,14 +31,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${person.name} — Controls, Embedded Systems, Products`,
     description: person.thesis,
-    images: ["/images/og-es.png"],
+    images: [`${site}/images/og-es.png`],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: person.name,
     description: person.thesis,
-    images: ["/images/og-es.png"],
+    images: [`${site}/images/og-es.png`],
   },
 };
 
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     name: person.name,
     email: person.email,
     url: site,
-    image: "/images/headshot.jpg",
+    image: `${site}/images/headshot.jpg`,
     jobTitle: "Controls Engineer",
     alumniOf: person.school,
     sameAs: [person.linkedin, person.github],
@@ -60,7 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="preload" href="/video/robotic-arm.mp4" as="video" type="video/mp4" />
+        <link rel="preload" href={withBase("/video/robotic-arm.mp4")} as="video" type="video/mp4" />
       </head>
       <body className="min-h-full bg-[#050506] font-sans text-white">
         <script
@@ -72,7 +73,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <SmoothScroll>
           <Loader />
-          <div className="grain" />
+          <div
+            className="grain"
+            style={{
+              backgroundImage: `url(${withBase("/images/grain-dark.png")})`,
+            }}
+          />
           <Nav />
           <main id="main">{children}</main>
           <Footer />

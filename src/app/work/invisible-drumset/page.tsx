@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 
 export const metadata: Metadata = { title: "Invisible Drumset" };
 

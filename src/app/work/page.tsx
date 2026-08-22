@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
 import { projects } from "@/lib/content";
 
@@ -10,8 +10,10 @@ export default function WorkPage() {
     <div className="px-5 pb-28 pt-28 md:px-8 md:pt-36">
       <div className="mx-auto max-w-[1400px]">
         <p className="text-[12px] tracking-[0.32em] text-white/45">WORK</p>
-        <h1 className="mt-4 max-w-3xl text-[clamp(2.6rem,7vw,6rem)] font-medium leading-[0.92] tracking-[-0.045em]">
-          Hardware, models, and the space between.
+        <h1 className="mt-4 max-w-4xl text-[clamp(2.6rem,7vw,6rem)] font-medium leading-[0.92] tracking-[-0.045em]">
+          Hardware, software, and
+          <br />
+          the space between.
         </h1>
         <div className="mt-20 grid gap-16 md:grid-cols-2">
           {projects.map((p) => {

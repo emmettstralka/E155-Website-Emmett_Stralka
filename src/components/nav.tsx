@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLenis } from "lenis/react";
+import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, person } from "@/lib/content";
@@ -11,40 +11,53 @@ const pill =
 const pillIdle = `${pill} border border-white/30 text-white hover:border-white/70`;
 const pillActive = `${pill} bg-white font-medium text-[#050506]`;
 
+function getLenis() {
+  return (window as Window & { __esLenis?: Lenis }).__esLenis;
+}
+
 export function Nav() {
   const path = usePathname();
-  const lenis = useLenis();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!lenis) {
-      const onScroll = () => setScrolled(window.scrollY > 24);
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    }
-    setScrolled(lenis.scroll > 24);
-    const onScroll = ({ scroll }: { scroll: number }) => setScrolled(scroll > 24);
-    lenis.on("scroll", onScroll);
-    return () => {
-      lenis.off("scroll", onScroll);
-    };
-  }, [lenis]);
+    const onWindowScroll = () => setScrolled(window.scrollY > 24);
+    onWindowScroll();
+    window.addEventListener("scroll", onWindowScroll, { passive: true });
 
-  useEffect(() => {
-    if (!document.documentElement.classList.contains("is-loading")) {
-      setReady(true);
-      return;
-    }
-    const onReady = () => setReady(true);
-    window.addEventListener("es:ready", onReady);
-    return () => window.removeEventListener("es:ready", onReady);
+    let detachLenis: (() => void) | undefined;
+    const attachLenis = () => {
+      const lenis = getLenis();
+      if (!lenis) return;
+      detachLenis?.();
+      const onScroll = ({ scroll }: { scroll: number }) => setScrolled(scroll > 24);
+      lenis.on("scroll", onScroll);
+      detachLenis = () => lenis.off("scroll", onScroll);
+    };
+    attachLenis();
+    window.addEventListener("es:lenis", attachLenis);
+
+    return () => {
+      window.removeEventListener("scroll", onWindowScroll);
+      window.removeEventListener("es:lenis", attachLenis);
+      detachLenis?.();
+    };
   }, []);
 
   useEffect(() => {
-    setOpen(false);
+    const reveal = () => setReady(true);
+    if (!document.documentElement.classList.contains("is-loading")) {
+      const id = requestAnimationFrame(reveal);
+      return () => cancelAnimationFrame(id);
+    }
+    window.addEventListener("es:ready", reveal);
+    return () => window.removeEventListener("es:ready", reveal);
+  }, []);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOpen(false));
+    return () => cancelAnimationFrame(id);
   }, [path]);
 
   return (
