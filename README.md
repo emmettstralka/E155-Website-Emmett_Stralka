@@ -11,11 +11,11 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Structure
 
-- `/` — hero, Apple robotic-arm video chapter, experience scenes, selected work
+- `/` — hero, robotic-arm video chapter, experience scenes, selected work
 - `/work` — projects
 - `/work/invisible-drumset` — capstone case study
 - `/work/e155` — lab sequence
-- `/experience` — Apple, Ford, Trilobio
+- `/experience` — soft goods, Ford, Trilobio
 - `/about`
 
 Place `resume.pdf` in `public/` if you want a resume link live.

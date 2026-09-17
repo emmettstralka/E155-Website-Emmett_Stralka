@@ -21,8 +21,8 @@ export default function AboutPage() {
             rigorous and useful in the world.
           </p>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
-            Right now: controls at Apple. Before that: vehicle intelligence and energy models at
-            Ford, and high-resolution sensing at Trilobio.
+            Right now: soft-goods polishing and manufacturing controls. Before that: vehicle
+            intelligence and energy models at Ford, and high-resolution sensing at Trilobio.
           </p>
           <div className="mt-12 space-y-6">
             <h2 className="text-sm tracking-[0.22em] text-white/45">EDUCATION</h2>

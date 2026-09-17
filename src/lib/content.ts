@@ -26,14 +26,14 @@ export const nav = [
 
 export const experience = [
   {
-    company: "Apple",
+    company: "Soft Goods",
     role: "Controls Engineer",
     dates: "Aug 2025 – Present",
-    location: "Cupertino, CA",
+    location: "California",
     summary:
-      "Manufacturing, algorithms, embedded systems, and force-based dynamic control on a team of seven.",
+      "Soft-goods polishing automation: algorithms, embedded systems, and force-based dynamic control on a team of seven.",
     points: [
-      "Working on a team of 7 focused on manufacturing, algorithms, embedded systems, and force-based dynamic control.",
+      "Working on a team of 7 focused on soft-goods polishing, manufacturing automation, embedded systems, and force-based dynamic control.",
     ],
   },
   {
@@ -74,7 +74,7 @@ export const experience = [
       "Integrated Ford’s protobuf Vehicle Energy Model onto the V363 EV platform for 20,000+ E-Transit vans.",
       "Validated VEM predictions against fleet telemetry in SQL for reliable state of charge.",
       "Architected forward-compatible VEM tuning with hyperparameter optimization across usage patterns.",
-      "Coordinated with Apple CarPlay UX and SYNC engineering for 200,000+ electric vehicles.",
+      "Coordinated with CarPlay UX and SYNC engineering for 200,000+ electric vehicles.",
     ],
   },
 ] as const;
@@ -94,16 +94,16 @@ export const projects = [
     tags: ["IMU", "FPGA", "STM32", "SPI"],
   },
   {
-    slug: "apple",
-    title: "Controls Engineering",
-    kicker: "Apple · Controls",
+    slug: "soft-goods",
+    title: "Soft goods polishing",
+    kicker: "Manufacturing · Soft goods",
     subtitle: "Automation and robotics, on the line",
     description:
-      "Manufacturing automation and robotics: algorithms, embedded systems, and force-based dynamic control on a team of seven.",
+      "Soft-goods polishing automation and robotics: algorithms, embedded systems, and force-based dynamic control on a team of seven.",
     href: "/experience",
     external: false,
     image: "/images/apple-controls-watch-blank.png",
-    alt: "Space Gray Apple Watch with black sport band on a dark studio background, display fully off",
+    alt: "Space gray smartwatch with black sport band on a dark studio background, display fully off",
     tags: ["Controls", "Embedded", "Manufacturing"],
   },
   {
