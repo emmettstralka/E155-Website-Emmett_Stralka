@@ -487,7 +487,7 @@ export const creativeWorks = [
   {
     src: "/creative/mondrian-house-board.jpg",
     alt: "Mondrian-style architecture design board with 3D renders, elevations, and color palette",
-    caption: "House build",
+    caption: "House build design",
     width: 820,
     height: 1024,
   },
