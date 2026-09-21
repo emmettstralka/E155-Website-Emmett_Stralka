@@ -522,7 +522,7 @@ export const creativeWorks = [
   {
     src: "/creative/courtyard-sketch.jpg",
     alt: "Pencil courtyard sketch with statue, value scale, and tree limb",
-    caption: "Value study",
+    caption: "Scripps value study",
     width: 768,
     height: 1024,
   },
