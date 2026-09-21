@@ -259,32 +259,19 @@ export const creative = {
     "Photos of packaging, furniture, CNC and mill work, manufacturing fixtures, custom boards, and shop process from 2021 to 2026.",
 } as const;
 
-/**
- * Creative gallery ordering system
- * --------------------------------
- * - `order`: explicit numeric rank (lower = earlier). Always sort by this before render.
- * - `size`: which visual band the piece belongs to:
- *     "float"   → Top band: tensegrity set → Mark → Breath
- *     "large"   → Featured band: Wall panels, Coffee table, Monument, Speaker,
- *                 Rocket bottle design, House build design
- *     "default" → Remaining gallery
- * The Creative page renders three separate CSS grids in that band order so reading
- * order matches `order`. Do not use CSS multi-column (`column-count`) here — columns
- * fill top-to-bottom per column and `column-span: all` breaks source order.
- * Do not use negative translate on float tiles — it breaks row alignment.
- */
-export type CreativeSize = "float" | "large" | "default";
-
 export type CreativeWork = {
   src: string;
   alt: string;
   caption: string;
   width: number;
   height: number;
-  order: number;
-  size: CreativeSize;
 };
 
+/**
+ * Creative gallery works. Array source order feeds CSS multi-column masonry
+ * (top-to-bottom per column). Preferred pieces are listed first so they tend
+ * to appear earlier; masonry does not guarantee left-to-right reading order.
+ */
 export const creativeWorks: CreativeWork[] = [
   {
     src: "/creative/img-9987-clean.png",
@@ -292,8 +279,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity",
     width: 1024,
     height: 1536,
-    order: 10,
-    size: "float",
   },
   {
     src: "/creative/cad-ring-sculpture.jpg",
@@ -301,8 +286,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity ideation",
     width: 727,
     height: 1212,
-    order: 20,
-    size: "float",
   },
   {
     src: "/creative/img-9853.jpg",
@@ -310,8 +293,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity process",
     width: 4032,
     height: 3024,
-    order: 30,
-    size: "float",
   },
   {
     src: "/creative/img-9844-clean.png",
@@ -319,8 +300,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity toolpaths",
     width: 1536,
     height: 1024,
-    order: 40,
-    size: "float",
   },
   {
     src: "/creative/img-0347.jpg",
@@ -328,8 +307,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Mark",
     width: 1842,
     height: 4000,
-    order: 50,
-    size: "float",
   },
   {
     src: "/creative/img-0456.jpg",
@@ -337,8 +314,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Breath",
     width: 4005,
     height: 3396,
-    order: 60,
-    size: "float",
   },
   {
     src: "/creative/img-9938-clean.png",
@@ -346,8 +321,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Wall panels",
     width: 1024,
     height: 1536,
-    order: 70,
-    size: "large",
   },
   {
     src: "/creative/img-1811-clean.png",
@@ -355,8 +328,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Coffee table",
     width: 1536,
     height: 1024,
-    order: 80,
-    size: "large",
   },
   {
     src: "/creative/img-0353.jpg",
@@ -364,8 +335,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Monument",
     width: 4000,
     height: 4000,
-    order: 90,
-    size: "large",
   },
   {
     src: "/creative/img-0765.jpg",
@@ -373,8 +342,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Speaker",
     width: 4986,
     height: 3712,
-    order: 100,
-    size: "large",
   },
   {
     src: "/creative/rocket-bottle-board.jpg",
@@ -382,8 +349,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Rocket bottle design",
     width: 4000,
     height: 5010,
-    order: 110,
-    size: "large",
   },
   {
     src: "/creative/mondrian-house-board.jpg",
@@ -391,8 +356,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "House build design",
     width: 3281,
     height: 4096,
-    order: 120,
-    size: "large",
   },
   {
     src: "/creative/img-bench.png",
@@ -400,8 +363,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "In the lab",
     width: 1024,
     height: 654,
-    order: 130,
-    size: "default",
   },
   {
     src: "/creative/img-9072.jpg",
@@ -409,8 +370,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Raw slab from the Palisades Fire, LA",
     width: 4032,
     height: 3024,
-    order: 140,
-    size: "default",
   },
   {
     src: "/creative/img-9832-clean.png",
@@ -418,8 +377,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Live-edge console",
     width: 1536,
     height: 1024,
-    order: 150,
-    size: "default",
   },
   {
     src: "/creative/img-1616-clean.png",
@@ -427,8 +384,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Orbit",
     width: 1024,
     height: 1024,
-    order: 160,
-    size: "default",
   },
   {
     src: "/creative/img-9022-clean.png",
@@ -436,8 +391,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "boardz sketchbook",
     width: 1536,
     height: 1024,
-    order: 170,
-    size: "default",
   },
   {
     src: "/creative/studio-05.jpg",
@@ -445,8 +398,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "BRRY cartons",
     width: 1440,
     height: 1795,
-    order: 180,
-    size: "default",
   },
   {
     src: "/creative/img-0341.jpg",
@@ -454,8 +405,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "BRRY process board",
     width: 688,
     height: 1000,
-    order: 190,
-    size: "default",
   },
   {
     src: "/creative/img-0472.jpg",
@@ -463,8 +412,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tension Table",
     width: 2033,
     height: 1452,
-    order: 200,
-    size: "default",
   },
   {
     src: "/creative/img-0681.jpg",
@@ -472,8 +419,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Lamp ideation",
     width: 3739,
     height: 2464,
-    order: 210,
-    size: "default",
   },
   {
     src: "/creative/img-0533.jpg",
@@ -481,8 +426,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Lamp, CAD",
     width: 1424,
     height: 1426,
-    order: 220,
-    size: "default",
   },
   {
     src: "/creative/img-0354.jpg",
@@ -490,8 +433,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Halftone bill",
     width: 4096,
     height: 1714,
-    order: 230,
-    size: "default",
   },
   {
     src: "/creative/discovery-star-translation-v2.png",
@@ -499,8 +440,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Discovery Star, Mandalorian translation",
     width: 1536,
     height: 1024,
-    order: 240,
-    size: "default",
   },
   {
     src: "/creative/img-0916.jpg",
@@ -508,8 +447,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Roberts Pavilion mass study",
     width: 2108,
     height: 1419,
-    order: 250,
-    size: "default",
   },
   {
     src: "/creative/oreo-message.png",
@@ -517,8 +454,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Oreo, winner",
     width: 1024,
     height: 785,
-    order: 260,
-    size: "default",
   },
   {
     src: "/creative/oreo-01.jpg",
@@ -526,8 +461,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Oreo",
     width: 2400,
     height: 1600,
-    order: 270,
-    size: "default",
   },
   {
     src: "/creative/oreo-03.jpg",
@@ -535,8 +468,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Oreo",
     width: 5568,
     height: 3712,
-    order: 280,
-    size: "default",
   },
   {
     src: "/creative/img-9642.jpg",
@@ -544,8 +475,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Custom manufactured ESP32",
     width: 4032,
     height: 3024,
-    order: 290,
-    size: "default",
   },
   {
     src: "/creative/studio-04.jpg",
@@ -553,8 +482,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Serving size",
     width: 1440,
     height: 1795,
-    order: 300,
-    size: "default",
   },
   {
     src: "/creative/img-0487.jpg",
@@ -562,8 +489,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Oreo process board",
     width: 4000,
     height: 4000,
-    order: 310,
-    size: "default",
   },
   {
     src: "/creative/img-9692.jpg",
@@ -571,8 +496,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "On the mill",
     width: 4032,
     height: 3024,
-    order: 320,
-    size: "default",
   },
   {
     src: "/creative/studio-07.jpg",
@@ -580,8 +503,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Kerf bend",
     width: 1440,
     height: 1078,
-    order: 330,
-    size: "default",
   },
   {
     src: "/creative/img-0945.jpg",
@@ -589,8 +510,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Roberts Pavilion",
     width: 5628,
     height: 3752,
-    order: 340,
-    size: "default",
   },
   {
     src: "/creative/soft-mallet.jpg",
@@ -598,8 +517,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Hard and Soft face hammer",
     width: 951,
     height: 1848,
-    order: 350,
-    size: "default",
   },
   {
     src: "/creative/machined-part.jpg",
@@ -607,8 +524,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Machined part hammer head",
     width: 4032,
     height: 3024,
-    order: 360,
-    size: "default",
   },
   {
     src: "/creative/fixtures-desk.jpg",
@@ -616,17 +531,13 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Fixtures and optical stage",
     width: 4032,
     height: 3024,
-    order: 370,
-    size: "default",
   },
   {
     src: "/creative/sculpture-sketch-ink.jpg",
     alt: "Ink sketch of a courtyard with a central sculpture and tree branch",
     caption: "Courtyard sketch",
-    width: 4032,
-    height: 3024,
-    order: 380,
-    size: "default",
+    width: 3024,
+    height: 4032,
   },
   {
     src: "/creative/courtyard-sketch.jpg",
@@ -634,8 +545,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Scripps value study",
     width: 4032,
     height: 3024,
-    order: 390,
-    size: "default",
   },
   {
     src: "/creative/cad-curved-form.jpg",
@@ -643,8 +552,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Curved form ideation",
     width: 1504,
     height: 906,
-    order: 400,
-    size: "default",
   },
   {
     src: "/creative/cad-cylinder-nozzle.jpg",
@@ -652,8 +559,6 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Spout design",
     width: 1540,
     height: 1270,
-    order: 410,
-    size: "default",
   },
   {
     src: "/creative/laminated-wood-pieces.jpg",
@@ -661,19 +566,8 @@ export const creativeWorks: CreativeWork[] = [
     caption: "SparkPass logo",
     width: 4032,
     height: 3024,
-    order: 420,
-    size: "default",
-  }
+  },
 ];
-
-/** Sorted copy for rendering; band sections filter from this. */
-export function sortedCreativeWorks() {
-  return [...creativeWorks].sort((a, b) => a.order - b.order);
-}
-
-export function creativeWorksBySize(size: CreativeSize) {
-  return sortedCreativeWorks().filter((work) => work.size === size);
-}
 
 export const labs = [
   {
