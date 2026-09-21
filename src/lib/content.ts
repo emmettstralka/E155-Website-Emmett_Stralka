@@ -438,7 +438,7 @@ export const creativeWorks = [
   {
     src: "/creative/img-9853.png",
     alt: "Plywood interlocking elliptical rings stacked on a workbench",
-    caption: "Elliptical rings",
+    caption: "Tensegrity process",
     width: 768,
     height: 1024,
   },
@@ -508,7 +508,7 @@ export const creativeWorks = [
   {
     src: "/creative/fixtures-desk.jpg",
     alt: "Two precision fixtures and jigs on a desk beside a monitor",
-    caption: "Fixtures",
+    caption: "Fixtures and optical stage",
     width: 1024,
     height: 768,
   },
@@ -529,37 +529,30 @@ export const creativeWorks = [
   {
     src: "/creative/cad-ring-sculpture.jpg",
     alt: "CAD study of interlocking oval and ring forms on an elliptical base",
-    caption: "Ring study",
+    caption: "Tensegrity ideation",
     width: 614,
     height: 1024,
   },
   {
     src: "/creative/cad-curved-form.jpg",
     alt: "CAD sculpture of curved bars passing through a horizontal ring on a rectangular base",
-    caption: "Curved form",
+    caption: "Curved form ideation",
     width: 1024,
     height: 616,
   },
   {
     src: "/creative/cad-cylinder-nozzle.jpg",
     alt: "Dual-view CAD of a gray cylinder with a dark nozzle and circular face",
-    caption: "Cylinder study",
+    caption: "Spout design",
     width: 1024,
     height: 844,
   },
   {
     src: "/creative/laminated-wood-pieces.jpg",
     alt: "Hand holding interlocking laminated walnut and maple zig-zag wood pieces",
-    caption: "Laminated wood",
+    caption: "SparkPass logo",
     width: 768,
     height: 1024,
-  },
-  {
-    src: "/creative/wire-ceramic-bonsai.jpg",
-    alt: "Wire bonsai sculpture with white ceramic discs in a mossy ceramic dish",
-    caption: "Wire bonsai",
-    width: 1024,
-    height: 868,
   },
 ] as const;
 
