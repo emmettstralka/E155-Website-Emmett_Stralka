@@ -404,13 +404,6 @@ export const creativeWorks: CreativeWork[] = [
     height: 1212,
   },
   {
-    src: "/creative/img-9844-clean.png",
-    alt: "VCarve toolpaths for an oval CNC part",
-    caption: "Tensegrity toolpaths",
-    width: 1536,
-    height: 1024,
-  },
-  {
     src: "/creative/img-bench.png",
     alt: "Electronics lab bench with oscilloscopes, a breadboard, and a person in frame",
     caption: "In the lab",
@@ -612,6 +605,13 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Spout design",
     width: 1540,
     height: 1270,
+  },
+  {
+    src: "/creative/img-9844-clean.png",
+    alt: "VCarve toolpaths for an oval CNC part",
+    caption: "Tensegrity toolpaths",
+    width: 1536,
+    height: 1024,
   },
   {
     src: "/creative/laminated-wood-pieces.jpg",
