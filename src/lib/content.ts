@@ -292,6 +292,17 @@ export const CREATIVE_FEATURED_CAPTIONS = [
   "House build design",
 ] as const;
 
+/**
+ * Rest-band works appended after the named featured list inside the same
+ * masonry block. CSS column-fill leaves a void under shorter featured columns
+ * (notably under House build design); these tiles fill that hole without
+ * promoting them into the named top priority set.
+ */
+export const CREATIVE_FEATURED_GAP_FILLERS = [
+  "Tensegrity ideation",
+  "In the lab",
+] as const;
+
 function creativeFeaturedRank(caption: string): number {
   const named = CREATIVE_FEATURED_CAPTIONS.map((c) => c.toLowerCase());
   const idx = named.indexOf(caption.toLowerCase());
@@ -302,14 +313,25 @@ export function isCreativeFeatured(work: CreativeWork): boolean {
   return Number.isFinite(creativeFeaturedRank(work.caption));
 }
 
+function isCreativeGapFiller(work: CreativeWork): boolean {
+  const keys = CREATIVE_FEATURED_GAP_FILLERS.map((c) => c.toLowerCase());
+  return keys.includes(work.caption.toLowerCase());
+}
+
 /** Featured works sorted by named priority; gallery works keep relative order. */
 export function partitionCreativeWorks(works: readonly CreativeWork[]) {
   const featured = works
     .filter(isCreativeFeatured)
     .slice()
     .sort((a, b) => creativeFeaturedRank(a.caption) - creativeFeaturedRank(b.caption));
-  const gallery = works.filter((w) => !isCreativeFeatured(w));
-  return { featured, gallery };
+  const fillers = CREATIVE_FEATURED_GAP_FILLERS.flatMap((caption) => {
+    const match = works.find(
+      (w) => w.caption.toLowerCase() === caption.toLowerCase() && !isCreativeFeatured(w),
+    );
+    return match ? [match] : [];
+  });
+  const gallery = works.filter((w) => !isCreativeFeatured(w) && !isCreativeGapFiller(w));
+  return { featured: [...featured, ...fillers], gallery };
 }
 
 /**

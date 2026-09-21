@@ -95,7 +95,8 @@ export default function CreativePage() {
         {/*
           Two sequential masonry blocks (no section labels): CSS columns balance
           within each block, so unnamed gallery works cannot sit at the top of
-          columns 2–3 beside the named top band.
+          columns 2–3 beside the named top band. Gap-filler tiles may trail the
+          named featured list inside the first block to close short-column voids.
         */}
         <div className="mt-20 flex flex-col gap-5">
           <MasonryBlock works={featured} />
