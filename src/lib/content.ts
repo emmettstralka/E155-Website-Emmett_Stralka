@@ -484,6 +484,55 @@ export const creativeWorks = [
     width: 5628,
     height: 3752,
   },
+  {
+    src: "/creative/soft-mallet.jpg",
+    alt: "Dual-face nylon and soft-face mallet with a wooden handle on a gray surface",
+    caption: "Soft mallet",
+    width: 526,
+    height: 1024,
+  },
+  {
+    src: "/creative/mondrian-house-board.jpg",
+    alt: "Mondrian-style architecture design board with 3D renders, elevations, and color palette",
+    caption: "Color house study",
+    width: 820,
+    height: 1024,
+  },
+  {
+    src: "/creative/rocket-bottle-board.jpg",
+    alt: "Rocket pump bottle product design board with amber renders, CAD views, and sketches",
+    caption: "Rocket bottle",
+    width: 817,
+    height: 1024,
+  },
+  {
+    src: "/creative/machined-part.jpg",
+    alt: "Small machined metal part with etched number 21 resting on wood",
+    caption: "Machined part",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/creative/fixtures-desk.jpg",
+    alt: "Two precision fixtures and jigs on a desk beside a monitor",
+    caption: "Fixtures",
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: "/creative/sculpture-sketch-ink.jpg",
+    alt: "Ink sketch of a courtyard with a central sculpture and tree branch",
+    caption: "Courtyard sketch",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/creative/courtyard-sketch.jpg",
+    alt: "Pencil courtyard sketch with statue, value scale, and tree limb",
+    caption: "Value study",
+    width: 768,
+    height: 1024,
+  },
 ] as const;
 
 export const labs = [
