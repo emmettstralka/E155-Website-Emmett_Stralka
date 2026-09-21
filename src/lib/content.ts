@@ -256,7 +256,7 @@ export const creative = {
   title: "Packaging, furniture, and the mill.",
   origin: "Creative Work · 2021–2026",
   description:
-    "Photos of packaging, tensegrity furniture, CNC and mill work, custom ESP32 boards, and shop process from 2021 to 2026.",
+    "Photos of packaging, furniture, CNC and mill work, manufacturing fixtures, custom boards, and shop process from 2021 to 2026.",
 } as const;
 
 export const creativeWorks = [
@@ -487,21 +487,21 @@ export const creativeWorks = [
   {
     src: "/creative/mondrian-house-board.jpg",
     alt: "Mondrian-style architecture design board with 3D renders, elevations, and color palette",
-    caption: "Color house study",
+    caption: "House build",
     width: 820,
     height: 1024,
   },
   {
     src: "/creative/rocket-bottle-board.jpg",
     alt: "Rocket pump bottle product design board with amber renders, CAD views, and sketches",
-    caption: "Rocket bottle",
+    caption: "Rocket bottle design",
     width: 817,
     height: 1024,
   },
   {
     src: "/creative/machined-part.jpg",
     alt: "Small machined metal part with etched number 21 resting on wood",
-    caption: "Machined part",
+    caption: "Machined part hammer head",
     width: 768,
     height: 1024,
   },
