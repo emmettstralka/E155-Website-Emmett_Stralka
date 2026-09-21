@@ -264,12 +264,14 @@ export const creative = {
  * --------------------------------
  * - `order`: explicit numeric rank (lower = earlier). Always sort by this before render.
  * - `size`: which visual band the piece belongs to:
- *     "float"   → Floating band (tensegrity, mark, breath) — top of page
- *     "large"   → Featured large band (furniture / design boards)
+ *     "float"   → Top band: tensegrity set → Mark → Breath
+ *     "large"   → Featured band: Wall panels, Coffee table, Monument, Speaker,
+ *                 Rocket bottle design, House build design
  *     "default" → Remaining gallery
  * The Creative page renders three separate CSS grids in that band order so reading
  * order matches `order`. Do not use CSS multi-column (`column-count`) here — columns
  * fill top-to-bottom per column and `column-span: all` breaks source order.
+ * Do not use negative translate on float tiles — it breaks row alignment.
  */
 export type CreativeSize = "float" | "large" | "default";
 
@@ -323,7 +325,7 @@ export const creativeWorks: CreativeWork[] = [
   {
     src: "/creative/img-0347.jpg",
     alt: "Layered wood lightning-bolt mark in front of a blue resin inlay",
-    caption: "Floating mark",
+    caption: "Mark",
     width: 1842,
     height: 4000,
     order: 50,

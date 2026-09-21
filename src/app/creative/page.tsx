@@ -13,22 +13,28 @@ export const metadata: Metadata = { title: "Creative" };
  * Sectioned gallery: Floating → Large → Gallery.
  * Each band is a CSS grid (row-major, document order). Never use CSS columns here —
  * see the ordering comment on `creativeWorks` in content.ts.
+ *
+ * Evenness rules: equal column tracks, shared gap, no translate offsets, shared
+ * aspect boxes so row tops align. Float stays prominent via shadow only.
  */
+const GAP = "gap-x-5 gap-y-10";
+
 const BANDS: { size: CreativeSize; label: string; grid: string }[] = [
   {
     size: "float",
     label: "Floating",
-    grid: "grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-3",
+    // 2 cols keeps the tensegrity set as two even rows, then Mark + Breath as a pair
+    grid: `grid grid-cols-1 ${GAP} sm:grid-cols-2`,
   },
   {
     size: "large",
     label: "Large",
-    grid: "grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2",
+    grid: `grid grid-cols-1 ${GAP} sm:grid-cols-2`,
   },
   {
     size: "default",
     label: "Gallery",
-    grid: "grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3",
+    grid: `grid grid-cols-1 ${GAP} sm:grid-cols-2 xl:grid-cols-3`,
   },
 ];
 
@@ -37,18 +43,14 @@ function WorkFigure({ work }: { work: CreativeWork }) {
   const large = work.size === "large";
 
   return (
-    <figure
-      className={
-        floated
-          ? "relative z-10 -translate-y-3 sm:-translate-y-8"
-          : undefined
-      }
-    >
+    <figure className="min-w-0">
       <div
         className={
           floated
-            ? "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
-            : "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
+            ? "aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[#0c0c0e] shadow-[0_20px_48px_rgba(0,0,0,0.4)]"
+            : large
+              ? "aspect-[5/6] overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
+              : "aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
         }
       >
         <Image
@@ -56,7 +58,11 @@ function WorkFigure({ work }: { work: CreativeWork }) {
           alt={work.alt}
           width={work.width}
           height={work.height}
-          className="h-auto w-full"
+          className={
+            large
+              ? "h-full w-full object-contain"
+              : "h-full w-full object-cover"
+          }
           sizes={
             large
               ? "(min-width: 640px) 45vw, 100vw"
@@ -85,7 +91,7 @@ export default function CreativePage() {
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">{creative.description}</p>
 
-        <div className="mt-20 flex flex-col gap-24">
+        <div className="mt-20 flex flex-col gap-16">
           {BANDS.map((band) => {
             const works = creativeWorksBySize(band.size);
             if (works.length === 0) return null;
