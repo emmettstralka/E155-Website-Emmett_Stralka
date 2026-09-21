@@ -589,8 +589,8 @@ export const creativeWorks: CreativeWork[] = [
     src: "/creative/courtyard-sketch.jpg",
     alt: "Pencil courtyard sketch with statue, value scale, and tree limb",
     caption: "Scripps value study",
-    width: 4032,
-    height: 3024,
+    width: 3024,
+    height: 4032,
   },
   {
     src: "/creative/cad-curved-form.jpg",
