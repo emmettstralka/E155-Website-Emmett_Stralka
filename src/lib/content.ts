@@ -480,7 +480,7 @@ export const creativeWorks = [
   {
     src: "/creative/soft-mallet.jpg",
     alt: "Dual-face nylon and soft-face mallet with a wooden handle on a gray surface",
-    caption: "Soft mallet",
+    caption: "Hard and Soft face hammer",
     width: 526,
     height: 1024,
   },
