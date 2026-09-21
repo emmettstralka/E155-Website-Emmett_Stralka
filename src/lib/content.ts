@@ -259,18 +259,76 @@ export const creative = {
     "Photos of packaging, furniture, CNC and mill work, manufacturing fixtures, custom boards, and shop process from 2021 to 2026.",
 } as const;
 
+export type CreativeProminence = "float" | "large";
+
 export type CreativeWork = {
   src: string;
   alt: string;
   caption: string;
   width: number;
   height: number;
+  /**
+   * Soft visual emphasis inside CSS multi-column masonry.
+   * - float: tensegrity set — slight lift + shadow
+   * - large: featured furniture/boards — stronger presence, no column-span
+   */
+  prominence?: CreativeProminence;
 };
 
 /**
- * Creative gallery works. Array source order feeds CSS multi-column masonry
- * (top-to-bottom per column). Preferred pieces are listed first so they tend
- * to appear earlier; masonry does not guarantee left-to-right reading order.
+ * Named top-band captions, in priority order. Anything not listed here is
+ * gallery-only and must render in a second masonry block below.
+ */
+export const CREATIVE_FEATURED_CAPTIONS = [
+  "Tensegrity",
+  "Tensegrity ideation",
+  "Tensegrity process",
+  "Tensegrity toolpaths",
+  "Mark",
+  "Breath",
+  "Wall panels",
+  "Coffee table",
+  "Monument",
+  "Speaker",
+  "Rocket bottle design",
+  "House build design",
+] as const;
+
+function creativeFeaturedRank(caption: string): number {
+  const lower = caption.toLowerCase();
+  if (lower.includes("tensegrity")) {
+    const tensegrityOrder = [
+      "tensegrity",
+      "tensegrity ideation",
+      "tensegrity process",
+      "tensegrity toolpaths",
+    ];
+    const idx = tensegrityOrder.indexOf(lower);
+    return idx === -1 ? 0 : idx;
+  }
+  const named = CREATIVE_FEATURED_CAPTIONS.map((c) => c.toLowerCase());
+  const idx = named.indexOf(lower);
+  return idx === -1 ? Number.POSITIVE_INFINITY : idx;
+}
+
+export function isCreativeFeatured(work: CreativeWork): boolean {
+  return Number.isFinite(creativeFeaturedRank(work.caption));
+}
+
+/** Featured works sorted by named priority; gallery works keep relative order. */
+export function partitionCreativeWorks(works: readonly CreativeWork[]) {
+  const featured = works
+    .filter(isCreativeFeatured)
+    .slice()
+    .sort((a, b) => creativeFeaturedRank(a.caption) - creativeFeaturedRank(b.caption));
+  const gallery = works.filter((w) => !isCreativeFeatured(w));
+  return { featured, gallery };
+}
+
+/**
+ * Creative gallery works. Featured pieces are listed first; the Creative page
+ * also partitions into two sequential masonry blocks so unnamed works cannot
+ * appear beside / above the named top band (CSS columns alone cannot guarantee that).
  */
 export const creativeWorks: CreativeWork[] = [
   {
@@ -279,6 +337,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity",
     width: 1024,
     height: 1536,
+    prominence: "float",
   },
   {
     src: "/creative/cad-ring-sculpture.jpg",
@@ -286,6 +345,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity ideation",
     width: 727,
     height: 1212,
+    prominence: "float",
   },
   {
     src: "/creative/img-9853.jpg",
@@ -293,6 +353,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity process",
     width: 4032,
     height: 3024,
+    prominence: "float",
   },
   {
     src: "/creative/img-9844-clean.png",
@@ -300,6 +361,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Tensegrity toolpaths",
     width: 1536,
     height: 1024,
+    prominence: "float",
   },
   {
     src: "/creative/img-0347.jpg",
@@ -310,7 +372,7 @@ export const creativeWorks: CreativeWork[] = [
   },
   {
     src: "/creative/img-0456.jpg",
-    alt: "Wire bonsai sculpture with white discs in a ceramic dish",
+    alt: "Twisted wire sculpture with white discs rooted in a mossy ceramic dish",
     caption: "Breath",
     width: 4005,
     height: 3396,
@@ -321,6 +383,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Wall panels",
     width: 1024,
     height: 1536,
+    prominence: "large",
   },
   {
     src: "/creative/img-1811-clean.png",
@@ -328,6 +391,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Coffee table",
     width: 1536,
     height: 1024,
+    prominence: "large",
   },
   {
     src: "/creative/img-0353.jpg",
@@ -335,6 +399,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Monument",
     width: 4000,
     height: 4000,
+    prominence: "large",
   },
   {
     src: "/creative/img-0765.jpg",
@@ -342,6 +407,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Speaker",
     width: 4986,
     height: 3712,
+    prominence: "large",
   },
   {
     src: "/creative/rocket-bottle-board.jpg",
@@ -349,6 +415,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "Rocket bottle design",
     width: 4000,
     height: 5010,
+    prominence: "large",
   },
   {
     src: "/creative/mondrian-house-board.jpg",
@@ -356,6 +423,7 @@ export const creativeWorks: CreativeWork[] = [
     caption: "House build design",
     width: 3281,
     height: 4096,
+    prominence: "large",
   },
   {
     src: "/creative/img-bench.png",
