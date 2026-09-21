@@ -259,29 +259,56 @@ export const creative = {
     "Photos of packaging, furniture, CNC and mill work, manufacturing fixtures, custom boards, and shop process from 2021 to 2026.",
 } as const;
 
-export const creativeWorks = [
+/**
+ * Creative gallery ordering system
+ * --------------------------------
+ * - `order`: explicit numeric rank (lower = earlier). Always sort by this before render.
+ * - `size`: which visual band the piece belongs to:
+ *     "float"   → Floating band (tensegrity, mark, breath) — top of page
+ *     "large"   → Featured large band (furniture / design boards)
+ *     "default" → Remaining gallery
+ * The Creative page renders three separate CSS grids in that band order so reading
+ * order matches `order`. Do not use CSS multi-column (`column-count`) here — columns
+ * fill top-to-bottom per column and `column-span: all` breaks source order.
+ */
+export type CreativeSize = "float" | "large" | "default";
+
+export type CreativeWork = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  order: number;
+  size: CreativeSize;
+};
+
+export const creativeWorks: CreativeWork[] = [
   {
     src: "/creative/img-9987-clean.png",
     alt: "Isolated studio still of a plywood tensegrity sculpture: oval base, parabolic arch, circular hoop held by a geometric network of dark tension strings",
     caption: "Tensegrity",
-    width: 768,
-    height: 1024,
+    width: 1024,
+    height: 1536,
+    order: 10,
     size: "float",
   },
   {
     src: "/creative/cad-ring-sculpture.jpg",
     alt: "CAD study of interlocking oval and ring forms on an elliptical base",
     caption: "Tensegrity ideation",
-    width: 614,
-    height: 1024,
+    width: 727,
+    height: 1212,
+    order: 20,
     size: "float",
   },
   {
-    src: "/creative/img-9853.png",
+    src: "/creative/img-9853.jpg",
     alt: "Plywood interlocking elliptical rings stacked on a workbench",
     caption: "Tensegrity process",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 30,
     size: "float",
   },
   {
@@ -290,6 +317,7 @@ export const creativeWorks = [
     caption: "Tensegrity toolpaths",
     width: 1536,
     height: 1024,
+    order: 40,
     size: "float",
   },
   {
@@ -298,6 +326,8 @@ export const creativeWorks = [
     caption: "Floating mark",
     width: 1842,
     height: 4000,
+    order: 50,
+    size: "float",
   },
   {
     src: "/creative/img-0456.jpg",
@@ -305,13 +335,16 @@ export const creativeWorks = [
     caption: "Breath",
     width: 4005,
     height: 3396,
+    order: 60,
+    size: "float",
   },
   {
     src: "/creative/img-9938-clean.png",
     alt: "Studio still of four black-framed brown textured relief panels in a 2x2 grid",
     caption: "Wall panels",
-    width: 768,
-    height: 1024,
+    width: 1024,
+    height: 1536,
+    order: 70,
     size: "large",
   },
   {
@@ -320,6 +353,7 @@ export const creativeWorks = [
     caption: "Coffee table",
     width: 1536,
     height: 1024,
+    order: 80,
     size: "large",
   },
   {
@@ -328,30 +362,34 @@ export const creativeWorks = [
     caption: "Monument",
     width: 4000,
     height: 4000,
+    order: 90,
     size: "large",
   },
   {
-    src: "/creative/img-0765.png",
+    src: "/creative/img-0765.jpg",
     alt: "two-tone wooden speaker with a circular white mesh grille, monstera leaves, studio backdrop",
     caption: "Speaker",
-    width: 1024,
-    height: 762,
+    width: 4986,
+    height: 3712,
+    order: 100,
     size: "large",
   },
   {
     src: "/creative/rocket-bottle-board.jpg",
     alt: "Rocket pump bottle product design board with amber renders, CAD views, and sketches",
     caption: "Rocket bottle design",
-    width: 817,
-    height: 1024,
+    width: 4000,
+    height: 5010,
+    order: 110,
     size: "large",
   },
   {
     src: "/creative/mondrian-house-board.jpg",
     alt: "Mondrian-style architecture design board with 3D renders, elevations, and color palette",
     caption: "House build design",
-    width: 820,
-    height: 1024,
+    width: 3281,
+    height: 4096,
+    order: 120,
     size: "large",
   },
   {
@@ -360,13 +398,17 @@ export const creativeWorks = [
     caption: "In the lab",
     width: 1024,
     height: 654,
+    order: 130,
+    size: "default",
   },
   {
-    src: "/creative/img-9072.png",
+    src: "/creative/img-9072.jpg",
     alt: "Live-edge wood slab resting on a yellow lid",
     caption: "Raw slab from the Palisades Fire, LA",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 140,
+    size: "default",
   },
   {
     src: "/creative/img-9832-clean.png",
@@ -374,13 +416,17 @@ export const creativeWorks = [
     caption: "Live-edge console",
     width: 1536,
     height: 1024,
+    order: 150,
+    size: "default",
   },
   {
-    src: "/creative/img-1616.png",
+    src: "/creative/img-1616-clean.png",
     alt: "circular nested-curve wood sculpture with a suspended honeycomb-banded ellipsoid, photographed in a room corner",
     caption: "Orbit",
     width: 1024,
     height: 1024,
+    order: 160,
+    size: "default",
   },
   {
     src: "/creative/img-9022-clean.png",
@@ -388,6 +434,8 @@ export const creativeWorks = [
     caption: "boardz sketchbook",
     width: 1536,
     height: 1024,
+    order: 170,
+    size: "default",
   },
   {
     src: "/creative/studio-05.jpg",
@@ -395,6 +443,8 @@ export const creativeWorks = [
     caption: "BRRY cartons",
     width: 1440,
     height: 1795,
+    order: 180,
+    size: "default",
   },
   {
     src: "/creative/img-0341.jpg",
@@ -402,6 +452,8 @@ export const creativeWorks = [
     caption: "BRRY process board",
     width: 688,
     height: 1000,
+    order: 190,
+    size: "default",
   },
   {
     src: "/creative/img-0472.jpg",
@@ -409,6 +461,8 @@ export const creativeWorks = [
     caption: "Tension Table",
     width: 2033,
     height: 1452,
+    order: 200,
+    size: "default",
   },
   {
     src: "/creative/img-0681.jpg",
@@ -416,6 +470,8 @@ export const creativeWorks = [
     caption: "Lamp ideation",
     width: 3739,
     height: 2464,
+    order: 210,
+    size: "default",
   },
   {
     src: "/creative/img-0533.jpg",
@@ -423,6 +479,8 @@ export const creativeWorks = [
     caption: "Lamp, CAD",
     width: 1424,
     height: 1426,
+    order: 220,
+    size: "default",
   },
   {
     src: "/creative/img-0354.jpg",
@@ -430,6 +488,8 @@ export const creativeWorks = [
     caption: "Halftone bill",
     width: 4096,
     height: 1714,
+    order: 230,
+    size: "default",
   },
   {
     src: "/creative/discovery-star-translation-v2.png",
@@ -437,6 +497,8 @@ export const creativeWorks = [
     caption: "Discovery Star, Mandalorian translation",
     width: 1536,
     height: 1024,
+    order: 240,
+    size: "default",
   },
   {
     src: "/creative/img-0916.jpg",
@@ -444,6 +506,8 @@ export const creativeWorks = [
     caption: "Roberts Pavilion mass study",
     width: 2108,
     height: 1419,
+    order: 250,
+    size: "default",
   },
   {
     src: "/creative/oreo-message.png",
@@ -451,6 +515,8 @@ export const creativeWorks = [
     caption: "Oreo, winner",
     width: 1024,
     height: 785,
+    order: 260,
+    size: "default",
   },
   {
     src: "/creative/oreo-01.jpg",
@@ -458,6 +524,8 @@ export const creativeWorks = [
     caption: "Oreo",
     width: 2400,
     height: 1600,
+    order: 270,
+    size: "default",
   },
   {
     src: "/creative/oreo-03.jpg",
@@ -465,13 +533,17 @@ export const creativeWorks = [
     caption: "Oreo",
     width: 5568,
     height: 3712,
+    order: 280,
+    size: "default",
   },
   {
-    src: "/creative/img-9642.png",
+    src: "/creative/img-9642.jpg",
     alt: "ESP32 development board held in hand, showing the microcontroller and pin headers",
     caption: "Custom manufactured ESP32",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 290,
+    size: "default",
   },
   {
     src: "/creative/studio-04.jpg",
@@ -479,6 +551,8 @@ export const creativeWorks = [
     caption: "Serving size",
     width: 1440,
     height: 1795,
+    order: 300,
+    size: "default",
   },
   {
     src: "/creative/img-0487.jpg",
@@ -486,13 +560,17 @@ export const creativeWorks = [
     caption: "Oreo process board",
     width: 4000,
     height: 4000,
+    order: 310,
+    size: "default",
   },
   {
-    src: "/creative/img-9692.png",
+    src: "/creative/img-9692.jpg",
     alt: "ShopBot CNC mill cutting guitar outlines in plywood",
     caption: "On the mill",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 320,
+    size: "default",
   },
   {
     src: "/creative/studio-07.jpg",
@@ -500,6 +578,8 @@ export const creativeWorks = [
     caption: "Kerf bend",
     width: 1440,
     height: 1078,
+    order: 330,
+    size: "default",
   },
   {
     src: "/creative/img-0945.jpg",
@@ -507,64 +587,91 @@ export const creativeWorks = [
     caption: "Roberts Pavilion",
     width: 5628,
     height: 3752,
+    order: 340,
+    size: "default",
   },
   {
     src: "/creative/soft-mallet.jpg",
     alt: "Dual-face nylon and soft-face mallet with a wooden handle on a gray surface",
     caption: "Hard and Soft face hammer",
-    width: 526,
-    height: 1024,
+    width: 951,
+    height: 1848,
+    order: 350,
+    size: "default",
   },
   {
     src: "/creative/machined-part.jpg",
     alt: "Small machined metal part with etched number 21 resting on wood",
     caption: "Machined part hammer head",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 360,
+    size: "default",
   },
   {
     src: "/creative/fixtures-desk.jpg",
     alt: "Two precision fixtures and jigs on a desk beside a monitor",
     caption: "Fixtures and optical stage",
-    width: 1024,
-    height: 768,
+    width: 4032,
+    height: 3024,
+    order: 370,
+    size: "default",
   },
   {
     src: "/creative/sculpture-sketch-ink.jpg",
     alt: "Ink sketch of a courtyard with a central sculpture and tree branch",
     caption: "Courtyard sketch",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 380,
+    size: "default",
   },
   {
     src: "/creative/courtyard-sketch.jpg",
     alt: "Pencil courtyard sketch with statue, value scale, and tree limb",
     caption: "Scripps value study",
-    width: 768,
-    height: 1024,
+    width: 4032,
+    height: 3024,
+    order: 390,
+    size: "default",
   },
   {
     src: "/creative/cad-curved-form.jpg",
     alt: "CAD sculpture of curved bars passing through a horizontal ring on a rectangular base",
     caption: "Curved form ideation",
-    width: 1024,
-    height: 616,
+    width: 1504,
+    height: 906,
+    order: 400,
+    size: "default",
   },
   {
     src: "/creative/cad-cylinder-nozzle.jpg",
     alt: "Dual-view CAD of a gray cylinder with a dark nozzle and circular face",
     caption: "Spout design",
-    width: 1024,
-    height: 844,
+    width: 1540,
+    height: 1270,
+    order: 410,
+    size: "default",
   },
   {
     src: "/creative/laminated-wood-pieces.jpg",
     alt: "Hand holding interlocking laminated walnut and maple zig-zag wood pieces",
     caption: "SparkPass logo",
-    width: 768,
-    height: 1024,
-  },
-] as const;
+    width: 4032,
+    height: 3024,
+    order: 420,
+    size: "default",
+  }
+];
+
+/** Sorted copy for rendering; band sections filter from this. */
+export function sortedCreativeWorks() {
+  return [...creativeWorks].sort((a, b) => a.order - b.order);
+}
+
+export function creativeWorksBySize(size: CreativeSize) {
+  return sortedCreativeWorks().filter((work) => work.size === size);
+}
 
 export const labs = [
   {

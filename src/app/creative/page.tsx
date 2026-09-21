@@ -1,17 +1,74 @@
 import type { Metadata } from "next";
 import { SiteImage as Image } from "@/components/site-image";
-import { creative, creativeWorks } from "@/lib/content";
+import {
+  creative,
+  creativeWorksBySize,
+  type CreativeSize,
+  type CreativeWork,
+} from "@/lib/content";
 
 export const metadata: Metadata = { title: "Creative" };
 
-function figureClass(size?: "large" | "float") {
-  if (size === "float") {
-    return "mb-10 break-inside-avoid relative z-10 -translate-y-4 sm:-translate-y-10";
-  }
-  if (size === "large") {
-    return "mb-10 break-inside-avoid sm:[column-span:all]";
-  }
-  return "mb-8 break-inside-avoid";
+/**
+ * Sectioned gallery: Floating → Large → Gallery.
+ * Each band is a CSS grid (row-major, document order). Never use CSS columns here —
+ * see the ordering comment on `creativeWorks` in content.ts.
+ */
+const BANDS: { size: CreativeSize; label: string; grid: string }[] = [
+  {
+    size: "float",
+    label: "Floating",
+    grid: "grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-3",
+  },
+  {
+    size: "large",
+    label: "Large",
+    grid: "grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2",
+  },
+  {
+    size: "default",
+    label: "Gallery",
+    grid: "grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3",
+  },
+];
+
+function WorkFigure({ work }: { work: CreativeWork }) {
+  const floated = work.size === "float";
+  const large = work.size === "large";
+
+  return (
+    <figure
+      className={
+        floated
+          ? "relative z-10 -translate-y-3 sm:-translate-y-8"
+          : undefined
+      }
+    >
+      <div
+        className={
+          floated
+            ? "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+            : "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
+        }
+      >
+        <Image
+          src={work.src}
+          alt={work.alt}
+          width={work.width}
+          height={work.height}
+          className="h-auto w-full"
+          sizes={
+            large
+              ? "(min-width: 640px) 45vw, 100vw"
+              : "(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
+          }
+        />
+      </div>
+      <figcaption className="mt-3 px-1">
+        <span className="text-[15px] tracking-[-0.02em] text-white/85">{work.caption}</span>
+      </figcaption>
+    </figure>
+  );
 }
 
 export default function CreativePage() {
@@ -28,35 +85,18 @@ export default function CreativePage() {
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">{creative.description}</p>
 
-        <div className="mt-20 columns-1 gap-5 sm:columns-2 xl:columns-3">
-          {creativeWorks.map((work) => {
-            const size = "size" in work ? work.size : undefined;
+        <div className="mt-20 flex flex-col gap-24">
+          {BANDS.map((band) => {
+            const works = creativeWorksBySize(band.size);
+            if (works.length === 0) return null;
             return (
-              <figure key={work.src} className={figureClass(size)}>
-                <div
-                  className={
-                    size === "float"
-                      ? "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
-                      : "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
-                  }
-                >
-                  <Image
-                    src={work.src}
-                    alt={work.alt}
-                    width={work.width}
-                    height={work.height}
-                    className="h-auto w-full"
-                    sizes={
-                      size === "large"
-                        ? "(min-width: 1280px) 90vw, 100vw"
-                        : "(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
-                    }
-                  />
+              <section key={band.size} aria-label={band.label}>
+                <div className={band.grid}>
+                  {works.map((work) => (
+                    <WorkFigure key={work.src} work={work} />
+                  ))}
                 </div>
-                <figcaption className="mt-3 px-1">
-                  <span className="text-[15px] tracking-[-0.02em] text-white/85">{work.caption}</span>
-                </figcaption>
-              </figure>
+              </section>
             );
           })}
         </div>
