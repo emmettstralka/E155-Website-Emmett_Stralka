@@ -1,3 +1,3 @@
 :HL["/E155-Website-Emmett_Stralka/_next/static/chunks/223_1hq671l4t.css","style"]
 :HL["/E155-Website-Emmett_Stralka/video/robotic-arm.mp4","video",{"type":"video/mp4"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"d5RzAV1mZauPLOakDuqEY"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"-h-yCQD1IE4KhwMU5rYNq"}
