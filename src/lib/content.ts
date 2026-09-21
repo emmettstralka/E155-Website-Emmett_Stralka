@@ -526,6 +526,41 @@ export const creativeWorks = [
     width: 768,
     height: 1024,
   },
+  {
+    src: "/creative/cad-ring-sculpture.jpg",
+    alt: "CAD study of interlocking oval and ring forms on an elliptical base",
+    caption: "Ring study",
+    width: 614,
+    height: 1024,
+  },
+  {
+    src: "/creative/cad-curved-form.jpg",
+    alt: "CAD sculpture of curved bars passing through a horizontal ring on a rectangular base",
+    caption: "Curved form",
+    width: 1024,
+    height: 616,
+  },
+  {
+    src: "/creative/cad-cylinder-nozzle.jpg",
+    alt: "Dual-view CAD of a gray cylinder with a dark nozzle and circular face",
+    caption: "Cylinder study",
+    width: 1024,
+    height: 844,
+  },
+  {
+    src: "/creative/laminated-wood-pieces.jpg",
+    alt: "Hand holding interlocking laminated walnut and maple zig-zag wood pieces",
+    caption: "Laminated wood",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/creative/wire-ceramic-bonsai.jpg",
+    alt: "Wire bonsai sculpture with white ceramic discs in a mossy ceramic dish",
+    caption: "Wire bonsai",
+    width: 1024,
+    height: 868,
+  },
 ] as const;
 
 export const labs = [
