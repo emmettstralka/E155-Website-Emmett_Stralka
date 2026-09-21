@@ -1,5 +1,5 @@
-:HL["/E155-Website-Emmett_Stralka/_next/static/chunks/2en3vsiewwwsy.css","style"]
+:HL["/E155-Website-Emmett_Stralka/_next/static/chunks/0ewpcz-hb6cyw.css","style"]
 :HL["/E155-Website-Emmett_Stralka/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/E155-Website-Emmett_Stralka/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/E155-Website-Emmett_Stralka/video/robotic-arm.mp4","video",{"type":"video/mp4"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"about","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"cwWDpI5ZOxXcrlzPwjIi-"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"about","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"zsloRspohPxiIP2IAPbji"}
