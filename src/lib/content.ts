@@ -281,9 +281,7 @@ export type CreativeWork = {
  */
 export const CREATIVE_FEATURED_CAPTIONS = [
   "Tensegrity",
-  "Tensegrity ideation",
   "Tensegrity process",
-  "Tensegrity toolpaths",
   "Mark",
   "Breath",
   "Wall panels",
@@ -295,19 +293,8 @@ export const CREATIVE_FEATURED_CAPTIONS = [
 ] as const;
 
 function creativeFeaturedRank(caption: string): number {
-  const lower = caption.toLowerCase();
-  if (lower.includes("tensegrity")) {
-    const tensegrityOrder = [
-      "tensegrity",
-      "tensegrity ideation",
-      "tensegrity process",
-      "tensegrity toolpaths",
-    ];
-    const idx = tensegrityOrder.indexOf(lower);
-    return idx === -1 ? 0 : idx;
-  }
   const named = CREATIVE_FEATURED_CAPTIONS.map((c) => c.toLowerCase());
-  const idx = named.indexOf(lower);
+  const idx = named.indexOf(caption.toLowerCase());
   return idx === -1 ? Number.POSITIVE_INFINITY : idx;
 }
 
@@ -340,27 +327,11 @@ export const creativeWorks: CreativeWork[] = [
     prominence: "float",
   },
   {
-    src: "/creative/cad-ring-sculpture.jpg",
-    alt: "CAD study of interlocking oval and ring forms on an elliptical base",
-    caption: "Tensegrity ideation",
-    width: 727,
-    height: 1212,
-    prominence: "float",
-  },
-  {
     src: "/creative/img-9853.jpg",
     alt: "Plywood interlocking elliptical rings stacked on a workbench",
     caption: "Tensegrity process",
     width: 4032,
     height: 3024,
-    prominence: "float",
-  },
-  {
-    src: "/creative/img-9844-clean.png",
-    alt: "VCarve toolpaths for an oval CNC part",
-    caption: "Tensegrity toolpaths",
-    width: 1536,
-    height: 1024,
     prominence: "float",
   },
   {
@@ -424,6 +395,20 @@ export const creativeWorks: CreativeWork[] = [
     width: 3281,
     height: 4096,
     prominence: "large",
+  },
+  {
+    src: "/creative/cad-ring-sculpture.jpg",
+    alt: "CAD study of interlocking oval and ring forms on an elliptical base",
+    caption: "Tensegrity ideation",
+    width: 727,
+    height: 1212,
+  },
+  {
+    src: "/creative/img-9844-clean.png",
+    alt: "VCarve toolpaths for an oval CNC part",
+    caption: "Tensegrity toolpaths",
+    width: 1536,
+    height: 1024,
   },
   {
     src: "/creative/img-bench.png",
