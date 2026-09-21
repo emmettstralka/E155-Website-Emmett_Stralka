@@ -317,13 +317,6 @@ export const creativeWorks = [
     height: 1024,
   },
   {
-    src: "/creative/img-0342-sketch.png",
-    alt: "Refined graphite industrial-design sketch of a two-chamber berry clamshell packaging concept",
-    caption: "Packaging sketches",
-    width: 1536,
-    height: 1024,
-  },
-  {
     src: "/creative/img-9022-clean.png",
     alt: "Sketchbook page for a carbon-fiber longboard with a boardz logo sticker",
     caption: "boardz sketchbook",
