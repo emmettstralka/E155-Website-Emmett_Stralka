@@ -4,6 +4,16 @@ import { creative, creativeWorks } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Creative" };
 
+function figureClass(size?: "large" | "float") {
+  if (size === "float") {
+    return "mb-10 break-inside-avoid relative z-10 -translate-y-4 sm:-translate-y-10";
+  }
+  if (size === "large") {
+    return "mb-10 break-inside-avoid sm:[column-span:all]";
+  }
+  return "mb-8 break-inside-avoid";
+}
+
 export default function CreativePage() {
   return (
     <div className="px-5 pb-28 pt-28 md:px-8 md:pt-36">
@@ -19,23 +29,36 @@ export default function CreativePage() {
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">{creative.description}</p>
 
         <div className="mt-20 columns-1 gap-5 sm:columns-2 xl:columns-3">
-          {creativeWorks.map((work) => (
-            <figure key={work.src} className="mb-8 break-inside-avoid">
-              <div className="overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]">
-                <Image
-                  src={work.src}
-                  alt={work.alt}
-                  width={work.width}
-                  height={work.height}
-                  className="h-auto w-full"
-                  sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
-                />
-              </div>
-              <figcaption className="mt-3 px-1">
-                <span className="text-[15px] tracking-[-0.02em] text-white/85">{work.caption}</span>
-              </figcaption>
-            </figure>
-          ))}
+          {creativeWorks.map((work) => {
+            const size = "size" in work ? work.size : undefined;
+            return (
+              <figure key={work.src} className={figureClass(size)}>
+                <div
+                  className={
+                    size === "float"
+                      ? "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e] shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+                      : "overflow-hidden rounded-[1.6rem] bg-[#0c0c0e]"
+                  }
+                >
+                  <Image
+                    src={work.src}
+                    alt={work.alt}
+                    width={work.width}
+                    height={work.height}
+                    className="h-auto w-full"
+                    sizes={
+                      size === "large"
+                        ? "(min-width: 1280px) 90vw, 100vw"
+                        : "(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
+                    }
+                  />
+                </div>
+                <figcaption className="mt-3 px-1">
+                  <span className="text-[15px] tracking-[-0.02em] text-white/85">{work.caption}</span>
+                </figcaption>
+              </figure>
+            );
+          })}
         </div>
       </div>
     </div>
